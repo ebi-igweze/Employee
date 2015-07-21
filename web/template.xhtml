@@ -1,0 +1,321 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content=" initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title><ui:insert name="title">placeable title</ui:insert></title>    
+
+        <!-- Bootstrap Core CSS -->
+        <link type="text/css" href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="resources/css/footer-distributed-with-address-and-phones.css"/>
+        <link href="resources/css/simple-sidebar.css" rel="stylesheet"/>
+        <link href="resources/css/logo-nav.css" rel="stylesheet"/>
+        <link type="text/css" href="resources/css/chatStyle.css" rel="stylesheet"/>
+    </h:head>
+
+    <h:body style="background-color: rgba(35,35,35,1)">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a style="font-family: inherit;position:relative;left: -25%;border-color: black" href="#menu-toggle" class="btn btn-primary hidden-sm" id="menu-toggle">
+                        <span class="glyphicon glyphicon-cog"></span> Self Service
+                    </a>
+
+                    <a href="#"><img src="resources/images/logo.PNG" alt="cyber logo" width="145" height="73"/></a></div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" >
+                    <h:form>
+                        <ul class="nav navbar-nav" style="position:relative; right:-12%;margin-top: 10px">
+                            <li id="home">
+                                <h:link value="Home" outcome="Home.xhtml" >
+                                    <f:ajax render="bodyContain"/>
+                                </h:link>
+                            </li>
+                            <li id="about">
+                                <h:link value="About ESS" outcome="About" >
+                                    <f:ajax render="bodyContain"/>
+                                </h:link>
+                            </li>
+
+                            <li id="contacthr">
+                                <h:commandLink value="Contact HR" action="#{home.navigate(1)}" >
+                                    <f:ajax render="bodyContain"/>
+                                </h:commandLink>
+                            </li>
+                            <li class="dropdown" id="profile">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"  >Profile<span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="border-color: #286090; border-width: 2px; border-top-color: #fff" role="menu" aria-labelledby="dropdownMenu">
+                                    <li>
+                                        <!--<a tabindex="-1" href="profile.xhtml">View Profile</a>-->
+                                        <h:commandLink tabindex="-1" value="view profile" action="#{home.navigate(2)}" >
+                                            <f:ajax render="bodyContain"/>
+                                        </h:commandLink>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><h:commandLink value="edit profile pic" tabindex="0" action="#{home.navigate(3)}">
+                                            <f:ajax render="bodyContain"/>
+                                        </h:commandLink>
+                                    </li>
+                                    <li>
+                                        <!--<a style="color: #286090" tabindex="1" href="benefits.xhtml">View Benefits</a>-->
+                                        <h:commandLink value="view benefits" tabindex="1" action="#{home.navigate(5)}">
+                                            <f:ajax render="bodyContain"/>
+                                        </h:commandLink>
+                                    </li>
+                                    <li>
+                                        <!--<a style="color: #286090" tabindex="2" href="#">Skill/Training</a>-->
+                                        <h:commandLink value="skill/training" tabindex="2" action="#{home.navigate(4)}">
+                                            <f:ajax render="bodyContain"/>
+                                        </h:commandLink>                                    
+                                    </li>
+                                </ul><!-- dropdown menu -->
+                            </li>
+                        </ul>
+                    </h:form>
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <h:panelGroup id="sidebar">
+                <h:form>
+                    #{profile.profiled(home)}
+                    <div id="sidebar-wrapper"  class="hidden-sm">
+                        <ul class="sidebar-nav"> 
+                            <h:panelGroup rendered="#{home.loggedIn}">
+                                <li class="sidebar-brand" style="margin-bottom: 99px; margin-top: 10px">
+                                    <a class="btn btn-primary" href="#" style="text-align: justify; background-color:  #204d74">
+
+                                        <span data-toggle="tooltip" data-original-title="click to edit profile picture" ><h:graphicImage style="border-radius: 30px; position: relative;left: -10px" library="profilePictures" name="#{profile.profilePic}" alt="profile-pic"/></span>
+                                    </a>
+                                </li>
+                            </h:panelGroup>
+                            <li>
+                                <!--  login section of sidebar-->
+                                <div class="panel panel-primary" style="margin-top: 12px;background-color:  #204d74">
+                                    <a style="text-align: justify;" class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <h:outputText id="login" rendered="#{!home.loggedIn}" value="Login"/>
+                                        <h:panelGroup rendered="#{home.loggedIn}"><span class="glyphicon glyphicon-user"></span> <h:outputText id="name" value=" #{profile.firstName}"/></h:panelGroup>
+                                    </a>
+                                    <!--menus for user-profile-->
+                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                        <h:panelGroup rendered="#{home.loggedIn}">
+                                            <!-- List group -->
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><span data-toggle="tooltip" data-original-title="view colleagues"><a href="#menu-toggle2" style="text-align: left; color: rgb(51, 122, 183)" id="menu-toggle2">colleagues<span class="glyphicon glyphicon-comment"></span></a></span></li>
+                                                <li class="list-group-item"><span data-toggle="tooltip" data-original-title="view messages"><a style="color: rgb(51, 122, 183)" href="#">messages <span class="badge">145</span></a></span></li>
+                                                <li class="list-group-item"><span data-toggle="tooltip" data-original-title="view group chat"><a  style="color: rgb(51, 122, 183)" href="#">group chat</a></span></li>
+                                                <li class="list-group-item"><span data-toggle="tooltip" data-original-title="sign out"><h:commandLink style="color: rgb(51, 122, 183)" value="logout"  action="#{home.logout()}"/></span></li>                                    
+                                            </ul>
+                                        </h:panelGroup>
+
+                                        <!--login boxes and button-->
+                                        <h:panelGroup id="logIN" rendered="#{!home.loggedIn}">
+                                            <div class="panel-body">
+                                                <h:inputText class="form-control" a:placeholder="ID Number" id="userID" style="margin-top:10px; margin-bottom:10px" value="#{home.userID}" />
+                                                <h:inputSecret class="form-control" a:placeholder="password" id="password" value="#{home.password}">
+                                                    <f:attribute name="userID" value="#{component.parent.parent.clientId}:userID"/>
+                                                    <f:validator validatorId="signIN"/>
+                                                </h:inputSecret>
+                                                <h:commandButton class="btn btn-success" style="float:left; font-weight:bolder; color: #444; margin-top:10px;" value="login" action="#{home.login()}">
+                                                </h:commandButton><br/><br/>
+                                                    <h:message for="password" style="margin: 0; color: red;"/>
+                                            </div>
+                                        </h:panelGroup>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--side bar navigation-->
+                            <li>
+                                <a class="btn btn-primary" style="font-family: inherit; text-align: justify" href="benefits.xhtml">Benefits Policies</a>
+
+                            </li>
+                            <li>
+                                <!--<a class="btn btn-primary" style="font-family: inherit;text-align: justify" href="#">Apply for Program</a>-->
+                                <h:commandLink class="btn btn-primary" style="font-family: inherit; text-align: justify" value="Apply for Program" action="#{home.navigate(7)}" >
+                                    <f:ajax render="bodyContain"/>
+                                </h:commandLink>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary" style="font-family: inherit;text-align: justify" href="news.xhtml">News/Events</a>
+
+                            </li>
+                            <li>
+                                <!--<a class="btn btn-primary" style="font-family: inherit;text-align: justify" href="#">Technical Support</a>-->
+                                <h:commandLink class="btn btn-primary" style="font-family: inherit; text-align: justify" value="Technical Support" action="#{home.navigate(8)}" >
+                                    <f:ajax render="bodyContain"/>
+                                </h:commandLink>
+                            </li>
+                        </ul>
+                    </div>
+                </h:form>
+            </h:panelGroup>
+
+            <!-- /#sidebar-wrapper -->
+
+
+            <!--begin the colleagues sidebar-->
+
+            <h:panelGroup id="colleaguesDisplay">
+
+                #{colleagues.colleaguesDisplayed(profile)}
+
+                <div class="chat-sidebar">
+                    <h:form>
+                        <h:panelGroup id="chatbar">
+                            <ul class="panel" style="margin:0;padding: 0; display: block">
+                                <li class="sidebar-name btn btn-primary" style="display: block">
+                                    <h:link style="color: white" outcome="colleagues">
+                                        <h:outputText value="search your colleagues"/>
+                                    </h:link>
+                                </li>
+                                <li id="divider" style="height: 1px; background-color: whitesmoke; display: block"></li>
+
+                                <ui:repeat value="#{colleagues.colleagues}" var="col">
+                                    <!--<li class="sidebar-name btn btn-default" style="display: block;text-align: justify">-->
+
+                                    <h:commandLink class="sidebar-name btn btn-default" style="display: block;text-align: justify;color: #204d74;font-family: inherit;" action="#{webTimeBean.disPlay()}">
+                                        <span class="glyphicon glyphicon-user"></span> <h:outputText  value=" #{col.colleagueFName} #{col.colleagueLName}"/>
+                                        <f:ajax render="bodyContain"/>
+                                    </h:commandLink>
+                                    <!--</li>-->   
+                                </ui:repeat>
+
+                            </ul>
+                        </h:panelGroup>
+                    </h:form>
+                </div>
+
+            </h:panelGroup>
+            <!--/end colleagues sidebar-->
+
+            <!-- Page Content -->
+            <div class="contain" >
+                <!-- Page Content -->
+                <h:panelGroup id="bodyContain">
+                    <ui:insert name="body">        
+                        placeable damn
+                    </ui:insert>  
+                </h:panelGroup>
+
+
+
+
+                <!--the footer section-->
+                <footer class="footer-distributed">
+
+                    <div class="footer-left">
+
+                        <h3>Company<span>logo</span></h3>
+
+                        <p class="footer-links">
+                            <a href="#">Home</a>
+                            ·
+                            <a href="#">Blog</a>
+                            ·
+                            <a href="#">Pricing</a>
+                            ·
+                            <a href="#">About</a>
+                            ·
+                            <a href="#">Faq</a>
+                            ·
+                            <a href="#">Contact</a>
+                        </p>
+
+                        <p class="footer-company-name">Company Name &copy; 2015</p>
+                    </div>
+
+                    <div class="footer-center">
+
+                        <div>
+                            <i class="fa fa-map-marker"></i>
+                            <p><span>21 Revolution Street</span> Paris, France</p>
+                        </div>
+
+                        <div>
+                            <i class="fa fa-phone"></i>
+                            <p>+1 555 123456</p>
+                        </div>
+
+                        <div>
+                            <i class="fa fa-envelope"></i>
+                            <p><a href="mailto:support@company.com">support@company.com</a></p>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-right">
+
+                        <p class="footer-company-about">
+                            <span>About the company</span>
+                            Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+                        </p>
+
+                        <div class="footer-icons">
+
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-github"></i></a>
+
+                        </div>
+
+                    </div>
+
+                </footer>
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script type="text/javascript" src="resources/js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/js/myScript.js"></script>
+
+        <!-- Menu Toggle Script -->
+        <script>
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+            $("#menu-toggle2").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggledright");
+            });
+        </script>
+
+    </h:body>
+
+</html>

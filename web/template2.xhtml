@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <title><ui:insert name="title">placeable title</ui:insert></title>    
+
+        <!-- Bootstrap Core CSS -->
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- Custom CSS -->
+        <link href="resources/css/logo-nav.css" rel="stylesheet"/>
+    </head>
+
+    <body style="background-color: rgba(34,34,34,1)">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#"><img src="resources/images/logo.PNG" alt="cyber logo" width="145" height="73"/></a></div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" style="position:relative; right:-12%" >
+                        <li>
+                            <a href="Home.xhtml">Home</a>
+                        </li>
+                        <li>
+                            <a href="About.xhtml">About ESS</a>
+                        </li>
+                        <li>
+                            <h:link value="Contact HR" outcome="ContactHR" />  
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  >Profile<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li><a tabindex="-1" href="profile.xhtml">View Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a style="color: #286090" tabindex="0" href="EditProfile.xhtml">Change profile pic</a></li>
+                                <li><a style="color: #286090" tabindex="1" href="benefits.xhtml">View Benefits</a></li>
+                                <li><a style="color: #286090" tabindex="2" href="#">Apply for Program</a></li>
+                            </ul><!-- dropdown menu -->
+                        </li>
+                    </ul>
+                    <p style=" float:right; padding: 0 20px"><ui:insert name="image">image goes here</ui:insert></p>  
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+
+
+        <!-- Page Content -->
+        <div class="contain" >
+              <h:form>
+                        <p:growl id="msgs" showDetail="true">
+
+                            <h:panelGrid columns="2">
+                                <p:imageCropper  minSize="148" maxSize="151" value="#{cropperView.croppedImage}" image="/resources/images/IT_helpdesk.jpg" aspectRatio="1.0" initialCoords="17,40,65,17"/>
+                                <p:graphicImage id="cropped" name="profilpic/#{cropperView.newImageName}.jpg" />
+                            </h:panelGrid>
+
+                            <p:commandButton value="Crop" action="#{cropperView.crop}" update="cropped msgs" icon="ui-icon-scissors"/>
+                        </p:growl>
+
+
+                    </h:form>
+        </div>
+        <script src="resources/js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="resources/js/bootstrap.js"></script>
+        <script src="resources/js/myScript.js"></script>
+    </body>
+</html>

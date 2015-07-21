@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+    <navigation-rule>
+        <from-view-id>/Home.xhtml</from-view-id>
+        
+        <navigation-case>
+            <from-action>#{home.callMenuItemLogin}</from-action>
+            <from-outcome>Login</from-outcome>
+            <to-view-id>/Login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{home.callMenuItemLogin}</from-action>
+            <from-outcome>view_profile</from-outcome>
+            <to-view-id>/profile.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{home.callMenuItemLogin}</from-action>
+            <from-outcome>edit_profile_pic</from-outcome>
+            <to-view-id>/profile.xhtml#edit</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{home.callMenuItemLogin}</from-action>
+            <from-outcome>Contact_HR</from-outcome>
+            <to-view-id>/ContactHR.xhtml</to-view-id>
+        </navigation-case>  
+        <navigation-case>
+            <from-action>#{home.callMenuItem}</from-action>
+            <from-outcome>home_success</from-outcome>
+            <to-view-id>/Home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{home.callMenuItem}</from-action>
+            <from-outcome>about_success</from-outcome>
+            <to-view-id>/about.xhtml</to-view-id>
+        </navigation-case>
+        
+        
+        
+        <navigation-case>
+            <from-action>#{home.callMenuItem}</from-action>
+            <from-outcome>apply_for_program</from-outcome>
+            <to-view-id>/Login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{home.callMenuItem}</from-action>
+            <from-outcome>veiw_benefits</from-outcome>
+            <to-view-id>/Login.xhtml</to-view-id>
+        </navigation-case>  
+    </navigation-rule>
+</faces-config>

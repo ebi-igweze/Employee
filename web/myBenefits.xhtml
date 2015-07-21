@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">My Benefits</ui:define>
+            <ui:define id="bd" name="body">
+                <div style="padding: 15px 10px">
+                    <!--the modal section-->
+                    <div id="modal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body btn-group">
+                                    <h:form enctype="multipart/form-data">
+                                        <h:inputFile id="file" required="true" class="btn btn-default" value="#{myBenefits.requestFile}"/>
+                                        <h:selectOneMenu id="selection" class="selectpicker btn btn-default" value="#{myBenefits.selecteBenefits}">
+                                            <f:selectItems value="#{myBenefits.benefits}"/>
+                                        </h:selectOneMenu>
+                                        <h:commandButton class="btn btn-success" action="#{myBenefits.upload(home)}" value="submit">
+                                            <f:ajax execute="file selection" render="uploadMessage file selection rbenefits"/>
+                                        </h:commandButton>
+                                    </h:form>
+                                    <h:link tabindex="-1" outcome="benefits.xhtml" class="list-group-item">view policies for Benefits</h:link> 
+                                </div>
+                                <div class="modal-footer">
+                                    <h:outputText id="uploadMessage" style="color: green" value="#{myBenefits.uploadMessage}"/>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">close</button>
+                                </div> <!--end modal header-->
+                            </div> <!--end modal content--> 
+                        </div><!--end modal dialog-->
+                    </div><!--end modal-->
+
+                    <div class="panel panel-primary" style="min-height: 400px">
+                        <!-- Basic Info panel header -->
+                        <div class="panel-heading"><span class=""/>Benefits Requested</div>
+                        <h:panelGroup  id="rbenefits">
+                            #{myBenefits.checkBenefits(home)}
+                            <ul class="list-group">
+                                <div class="modallinks clearfix">
+                                    <a tabindex="-1" href="#" class="list-group-item" style="border-radius: 0;">
+                                        <h:outputText value="#{myBenefits.message}"/>
+                                    </a>
+                                </div>  
+
+                                <ui:repeat value="#{myBenefits.requestedBenefits}" var="benefit">
+                                    <h:panelGroup rendered="#{!myBenefits.requestEmpty}"> 
+                                        <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-info-sign"></span> Benefit Requested: </span><h:outputText style="margin-left: 10px" value="#{benefit.benefit}"/></li>
+                                        <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-calendar"></span> Date Of Request: </span><h:outputText  style="margin-left: 10px" value="  #{benefit.dateRequested}"/></li>
+                                        <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-calendar"></span> Date Of Approval: </span><h:outputText  style="margin-left: 10px" value="  #{benefit.dateApproved}"/></li>
+                                    </h:panelGroup>
+                                    <li class="list-group-item" style="border-radius: 0;"></li>
+                                </ui:repeat>
+                            </ul> 
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

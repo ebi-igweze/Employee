@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">Education/Training</ui:define>  
+            <ui:define name="body">
+                <div style="padding: 15px 10px">
+                    <div class="panel panel-primary">
+                        <!-- Default panel header -->
+                        <div class="panel-heading"><span class=""/>Educational Qualification</div>
+
+                        <!-- List group -->
+                        <h:panelGroup  id="EducationList">
+                            #{skillTraining.getUserTrainingEducation(home)}
+                            <h:form id="form1" class="form-group-sm">
+                                <ui:repeat value="#{skillTraining.qualifications}" var="qualify">
+                                    <div class="panel-heading">
+                                        <ul class="list-group" style="margin-top: 10px">
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-education"></span> Institution Attended</span>
+
+                                                <h:outputText rendered="#{!qualify.editable}" style="color: black; margin-left: 22px" value="#{qualify.institutionAttended}"/>
+                                                <h:inputText class="form-control" a:placeholder="institution attended" id="course" rendered="#{qualify.editable}"  style="color: black;" value="#{qualify.institutionAttended}"/>
+                                            </li>
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span class="glyphicon glyphicon-certificate"></span> Qualification Attained</span>
+                                                <h:outputText rendered="#{!qualify.editable}" style="color: black; margin-left: 20px" value="#{qualify.qualificationAttained}"/>
+                                                <h:inputText size="15" class="form-control" a:placeholder="qualification attained" id="institution" rendered="#{qualify.editable}" style="color: black;" value="#{qualify.qualificationAttained}"/>
+                                            </li>
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-calendar"></span> Year Of Attendance</span>
+                                                <h:outputText rendered="#{!qualify.editable}" style="color: black; margin-left: 15px" value="#{qualify.yearOfAttendance}"/>
+                                                <h:inputText class="form-control" a:placeholder="year of attendance" id="certificate" rendered="#{qualify.editable}" style="color: black;" value="#{qualify.yearOfAttendance}"/>
+                                                <h:panelGroup rendered="#{qualify.editable}" class="list-group-item modallinks clearfix">
+                                                    <a>
+                                                        Date Attended <p:calendar />
+                                                    </a>
+                                                </h:panelGroup>
+                                            </li>
+                                            
+                                            <h:commandButton rendered="#{!qualify.editable}" class="btn btn-block btn-primary" value="edit" action="#{skillTraining.editQualification(qualify)}">
+                                                <f:ajax execute="course institution certificate start end" render="EducationList"/>
+                                            </h:commandButton>
+                                            <h:panelGroup rendered="#{qualify.editable}">
+                                                <h:commandButton id="saveQualification" rendered="#{qualify.editable}" class="btn btn-block btn-success" value="save" action="#{skillTraining.saveQualification(home, qualify)}">
+                                                    <f:ajax execute="course institution certificate start end" render="EducationList"/>
+                                                </h:commandButton>
+                                                <h:commandButton id="remove" rendered="#{qualify.editable}" class="btn btn-block btn-danger" value="Remove" action="#{skillTraining.removeQualification(qualify)}">
+                                                    <f:ajax render="EducationList"/>
+                                                </h:commandButton>
+                                            </h:panelGroup>
+                                        </ul>
+                                    </div>
+                                </ui:repeat>
+
+
+                                <h:commandButton class="btn btn-block btn-info" value="Add Qualification" action="#{skillTraining.addQualification()}">
+                                    <f:ajax render="EducationList"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:panelGroup>
+
+                    </div>
+
+
+                    <div class="panel panel-primary">
+                        <!-- Default panel header -->
+                        <div class="panel-heading"><span class=""/>Training</div>
+
+                        <!-- List group -->
+                        <h:panelGroup  id="trainingList">
+                            #{skillTraining.getUserTrainingEducation(home)}
+                            <h:form id="form2" class="form-group-sm">
+                                <ui:repeat value="#{skillTraining.trainings}" var="train">
+                                    <div class="panel-heading">
+                                        <ul class="list-group" style="margin-top: 10px">
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-book"></span> Training Course</span>
+
+                                                <h:outputText rendered="#{!train.editable}" style="color: black; margin-left: 22px" value="#{train.trainingCourse}"/>
+                                                <h:inputText class="form-control" a:placeholder="training course" id="course" rendered="#{train.editable}"  style="color: black;" value="#{train.trainingCourse}"/>
+                                            </li>
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-education"></span> Training institution</span>
+                                                <h:outputText rendered="#{!train.editable}" style="color: black; margin-left: 20px" value="#{train.trainingInstitution}"/>
+                                                <h:inputText size="15" class="form-control" a:placeholder="training institution" id="institution" rendered="#{train.editable}" style="color: black;" value="#{train.trainingInstitution}"/>
+                                            </li>
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-certificate"></span> Training Certificate</span>
+                                                <h:outputText rendered="#{!train.editable}" style="color: black; margin-left: 15px" value="#{train.trainingCertificate}"/>
+                                                <h:inputText class="form-control" a:placeholder="nothing" id="certificate" rendered="#{train.editable}" style="color: black;" value="#{train.trainingCertificate}"/>
+                                            </li>
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-calendar"></span> Date of Commencement</span>
+                                                <h:outputText rendered="#{!train.editable}" style="color: black; margin-left: 5px" value="#{train.startDate}"/>
+                                                <h:inputText class="form-control " a:placeholder="start date" id="start" rendered="#{train.editable}" style="color: black;" value="#{train.startDate}"/>
+                                            </li>
+                                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)"><span  class="glyphicon glyphicon-calendar"></span> Date of Completion</span>
+                                                <h:outputText rendered="#{!train.editable}" style="color: black; margin-left: 25px" value="#{train.endDate}"/>
+                                                <h:inputText class="form-control" a:placeholder="end date" id="end" rendered="#{train.editable}" style="color: black;" value="#{train.endDate}"/>
+                                            </li>
+                                            <h:commandButton rendered="#{!train.editable}" class="btn btn-block btn-primary" value="edit" action="#{skillTraining.editAction(train)}">
+                                                <f:ajax execute="course institution certificate start end" render="trainingList"/>
+                                            </h:commandButton>
+                                            <h:panelGroup rendered="#{train.editable}">
+                                                <h:commandButton class="btn btn-block btn-success" value="save" action="#{skillTraining.saveActionTraining(home, train)}">
+                                                    <f:ajax execute="course institution certificate start end" render="trainingList"/>
+                                                </h:commandButton>
+                                                <h:commandButton class="btn btn-block btn-danger" value="Remove" action="#{skillTraining.removeTraining(train)}">
+                                                    <f:ajax render="trainingList"/>
+                                                </h:commandButton>
+                                            </h:panelGroup>
+                                        </ul>
+                                    </div>
+                                </ui:repeat>
+
+
+                                <h:commandButton class="btn btn-block btn-info" value="Add Training" action="#{skillTraining.addTraining()}">
+                                    <f:ajax render="trainingList"/>
+                                </h:commandButton>
+                            </h:form>
+                        </h:panelGroup>
+
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:body id="contactHR">
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">Profile</ui:define>
+            <ui:define name="image"><img /></ui:define>
+            
+            <ui:define name="body">
+                <div class="row" style="padding-left: 20px; padding-right: 20px">
+                    <div class="row" style="background-image: url('resources/images/background-login.jpg');" >
+                    <div style="width: 400px; margin-left: 240px; margin-top: 100px;margin-bottom: 150px">
+                        <div class="page-header"><h1>SEND HR A MESSAGE</h1></div>
+                        <h:form class="form-horizontal">
+                            <div style="margin-left: 10px" class="form-group">
+                                <div class="col-sm-9">
+                                    <h:inputText requiredMessage="subject required" required="true" class="form-control" id="subject" p:placeholder="Subject or Summary" value=""/>                                  
+                                </div>
+                                <div>
+                                    <h:message for="subject" style="color: #d9534f"/>
+                                </div>
+                            </div>
+                            <div style="margin-left: 10px" class="form-group">
+                                <div class="col-sm-12">
+                                    <h:inputTextarea required="true" requiredMessage="*" class="form-control" style="height: 150px;resize: none" id="mail" p:placeholder="Message..." value=""/>
+                                </div>
+                            </div>
+                            <div  style="margin-left: 10px" class="form-group">
+                                <div class="col-sm-5">
+                                    <h:commandButton class="btn  btn-success" value="send" action="#"/>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body >
+        <div >
+            <h:form>
+                <p:growl id="msgs" showDetail="true"/>
+                Date: 
+                <p:calendar></p:calendar>
+                <h:panelGrid columns="2" width="300px">
+                    <p:imageCropper  minSize="148" maxSize="151" value="#{cropperView.croppedImage}" image="/resources/images/IT_helpdesk.jpg" aspectRatio="1.0" initialCoords="17,40,65,17"/>
+                    <p:graphicImage id="cropped" name="profilePictures/#{cropperView.newImageName}.jpg" />
+                </h:panelGrid>
+
+                <p:commandButton value="Crop" action="#{cropperView.crop}" update="cropped msgs" icon="ui-icon-scissors"/>
+                <br/>
+                <div>
+                <h:commandLink action ="#{cropperView.downloadClicked()}" value="download">
+                    <h:graphicImage library="profilePictures" name="profile1.jpg" style="border:none"/>
+                </h:commandLink>
+                </div>
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

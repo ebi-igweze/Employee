@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body id="profile">
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">Profile</ui:define>
+            <ui:define name="body">
+                #{profile.profiled(home)}
+                <div style="padding: 15px 10px">
+                    <div class="panel panel-primary">
+                        <!-- Basic Info panel header -->
+                        <div class="panel-heading"><span class=""/>Basic Info</div>
+
+                        <!-- List group -->
+                        <ul class="list-group">
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">ID:</span><h:outputText style="color: black; margin-left: 92px" value="#{profile.idNumber}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">Title:</span><h:outputText style="color: black; margin-left: 80px" value="#{profile.title}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">Name:</span><h:outputText style="color: black; margin-left: 70px" value="#{profile.lastName} #{profile.firstName}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">DOB:</span><h:outputText style="color: black; margin-left: 77px" value="#{profile.dob}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">State Of Origin:</span><h:outputText style="color: black; margin-left: 12px" value="#{profile.stateOfOrigin}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">LGA:</span><h:outputText style="color: black; margin-left: 78px" value="#{profile.lga}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">Gender:</span><h:outputText style="color: black; margin-left: 60px" value="#{profile.gender}"/></li>
+                        </ul>
+                    </div>
+
+
+                    <div class="panel panel-primary">
+                        <!--Company Details panel header -->
+                        <div class="panel-heading"><span class=""/>Company Info</div>
+
+                        <!-- List group -->
+                        <ul class="list-group">
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">Date of Employment:</span><h:outputText style="color: black; margin-left: 27px" value="#{profile.employmentDate}"/></li>
+                            <li class="list-group-item"><span style="color: rgb(51, 122, 183)">Department:</span><h:outputText style="color: black; margin-left: 80px" value="#{profile.department}"/></li>
+                        </ul>
+
+                        <div class="panel-heading"><span class=""/>Banking Info</div>
+                        <!-- List group -->
+                        <h:form>
+                            <ul class="list-group">
+                                <h:panelGroup id="bank-info">
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" style="color: rgb(51, 122, 183)"><h:commandLink value="Bank Name:" action="#{profile.setBankEditable(true)}">
+                                                <h:outputText rendered="#{!profile.bankEditable}" style="color: black; margin-left: 45px" value="#{profile.employeeBank}"/>
+                                                <f:ajax render="bank-info"/>
+                                            </h:commandLink></span>
+                                        <h:inputText id="bankName"  rendered="#{profile.bankEditable}" style="margin-left:45px; color: black" value="#{profile.employeeBank}"/>
+                                        <h:commandLink value="save" action="#{profile.saveBank()}" rendered="#{profile.bankEditable}">
+                                            <f:ajax execute="bankName" render="bank-info"/>
+                                        </h:commandLink>
+                                    </li>
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit"  style="color: rgb(51, 122, 183)"><h:commandLink value="Account Number:" action="#{profile.setAccountEditable(true)}">
+                                        <h:outputText rendered="#{!profile.accountEditable}" style="color: black; margin-left: 10px" value="#{profile.employeeAccount}"/>
+                                        <f:ajax render="bank-info"/>
+                                            </h:commandLink></span>
+                                        <h:inputText id="bankAccount"  rendered="#{profile.accountEditable}" style="margin-left:10px; color: black" value="#{profile.employeeAccount}"/>
+                                        <h:commandLink value="save" action="#{profile.saveBank()}" rendered="#{profile.accountEditable}">
+                                            <f:ajax execute="bankAccount" render="bank-info"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+                            </ul>
+                        </h:form>
+                    </div>
+
+
+                    <div class="panel panel-primary">
+                        <!--Personal Contact panel header -->
+                        <div  class="panel-heading"><span class=""/>Personal Contact</div>
+                        <!-- List group -->
+
+                        <h:form>
+                            <ul class="list-group">
+                                <h:panelGroup id="personal-email">
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" ><h:commandLink value="E-Mail:" action="#{profile.setEmailEditable(true)}">
+                                                <h:outputText rendered="#{!profile.emailEditable}" style="margin-left: 25px; color: black" value="#{profile.email}"/>
+                                                <f:ajax render="personal-email"/>
+                                            </h:commandLink></span>
+                                        <h:inputText id="textEmail"  rendered="#{profile.emailEditable}" style="margin-left: 25px; color: black" value="#{profile.email}"/>
+                                        <h:commandLink value="save" action="#{profile.savePersonal()}" rendered="#{profile.emailEditable}">
+                                            <f:ajax execute="textEmail" render="personal-email"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+                                <h:panelGroup id="personal-phone">
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" ><h:commandLink value="Phone:" action="#{profile.setPhoneEditable(true)}">
+                                                <h:outputText rendered="#{!profile.phoneEditable}" style="margin-left: 24px; color: black" value="#{profile.phone}"/>                                        
+                                                <f:ajax render="personal-phone"/>
+                                            </h:commandLink></span>
+                                        <h:inputText id="textPhone" rendered="#{profile.phoneEditable}" style="margin-left: 24px; color: black" value="#{profile.phone}"/>                                        
+                                        <h:commandLink value="save" action="#{profile.savePersonal()}" rendered="#{profile.phoneEditable}">
+                                            <f:ajax execute="textPhone" render="personal-phone"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+                                <h:panelGroup id="personal-address">
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" ><h:commandLink value="Address:" action="#{profile.setAddressEditable(true)}">
+                                                <h:outputText rendered="#{!profile.addressEditable}" style="margin-left: 14px; color: black" value="#{profile.address}"/>
+                                                <f:ajax render="personal-address"/>
+                                            </h:commandLink></span>
+                                        <h:inputText id="textAddress" rendered="#{profile.addressEditable}" style="margin-left: 14px; color: black" value="#{profile.address}"/>
+                                        <h:commandLink value="save" action="#{profile.savePersonal()}" rendered="#{profile.addressEditable}">
+                                            <f:ajax execute="textAddress" render="personal-address"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+                            </ul> 
+                        </h:form>
+
+                        <div class="panel-heading"><span class=""/>Emergency Contact</div>
+                        <!-- List group -->
+                        <h:form>
+                            <ul class="list-group">
+                                <h:panelGroup id="emergency-contact">
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" ><h:commandLink value="Next of Kin:" action="#{profile.setNokEditable(true)}">
+                                                <h:outputText rendered="#{!profile.nokEditable}" style="margin-left: 63px; color: black" value="#{profile.nok}"/>
+                                                <f:ajax render="emergency-contact"/>
+                                            </h:commandLink></span>
+
+                                        <h:inputText id="nok" rendered="#{profile.nokEditable}" style="margin-left: 63px; color: black" value="#{profile.nok}"/>
+                                        <h:commandLink value="save" action="#{profile.saveEmergency()}" rendered="#{profile.nokEditable}">
+                                            <f:ajax execute="nok" render="emergency-contact"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+
+                                <h:panelGroup id="emergency-phone">
+
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" ><h:commandLink value="Next of Kin - Phone:" action="#{profile.setNokPhoneEditable(true)}">
+                                                <h:outputText rendered="#{!profile.nokPhoneEditable}" style="margin-left: 10px; color: black" value="#{profile.nokPhone}"/>
+                                                <f:ajax render="emergency-phone"/></h:commandLink>                                        
+                                        </span>
+                                        <h:inputText id="nokPhone"  rendered="#{profile.nokPhoneEditable}" style="margin-left: 10px; color: black" value="#{profile.nokPhone}"/>
+                                        <h:commandLink value="save" action="#{profile.saveEmergency()}" rendered="#{profile.nokPhoneEditable}">
+                                            <f:ajax execute="nokPhone" render="emergency-phone"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+                                <h:panelGroup id="emergency-email">
+
+                                    <li class="list-group-item"><span data-toggle="tooltip" data-original-title="click to edit" ><h:commandLink value="Next of Kin - Email:" action="#{profile.setNokEmailEditable(true)}">
+                                                <h:outputText rendered="#{!profile.nokEmailEditable}" style="margin-left: 17px; color: black" value="#{profile.nokEmail}"/>
+                                                <f:ajax render="emergency-address"/></h:commandLink>
+                                        </span>
+                                        <h:inputText id="nokEmail" rendered="#{profile.nokEmailEditable}" style="margin-left: 17px; color: black" value="#{profile.nokEmail}"/>
+                                        <h:commandLink value="save" action="#{profile.saveEmergency()}" rendered="#{profile.nokEmailEditable}">
+                                            <f:ajax execute="nokEmail" render="emergency-email"/>
+                                        </h:commandLink>
+                                    </li>
+                                </h:panelGroup>
+                            </ul> 
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

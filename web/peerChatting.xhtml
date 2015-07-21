@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">Chat</ui:define>
+            <ui:define name="image"><img /></ui:define>
+            
+            <ui:define name="body">
+                <div class="panel panel-primary" style="height: 500px">
+                    <!--chat panel header -->
+                    <div class="panel-heading"><span class="glyphicon glyphicon-user"/><h:outputText value=" #{webTimeBean.userName}"/> </div>
+                    <div style="height: 420px; overflow-y: auto">
+                        <!-- List group -->
+                        <ul class="list-group">
+
+                            <ui:repeat value="#{webTimeBean.displayMessages}" var="msg">
+                                <h:panelGroup rendered="#{!msg.fromUser}">
+                                    <li class="list-group-item" style="border-radius: 4px; margin-right: 70px; margin-top: 10px"> 
+                                        <span style="font-size: 7pt; border: 1px; margin: 5px;vertical-align: text-top">#{msg.messageTimeStamp}</span>
+                                        <h:outputText value="#{msg.message}"/>
+                                    </li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{msg.fromUser}">
+                                    <li class="list-group-item" style="border-radius: 4px;margin-left: 70px; margin-top: 10px">
+                                        <span style="font-size: 7pt; border: 1px; margin: 5px;vertical-align: text-top">#{msg.messageTimeStamp}</span>
+                                        <h:outputText value="#{msg.message}"/>
+                                    </li>
+                                </h:panelGroup>
+                                <li class="list-group-item">
+                                    <span style="color: rgb(51, 122, 183)">
+                                        <h:outputText value="#{msg.message}"/>
+                                    </span>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                    <h:form>
+                        <h:inputTextarea value="#{webTimeBean.chatMessage}" p:placeholder="message...." id="chatText" class="form-control" required="true" style="resize: none; height: 50px;padding: 5px; margin: 0px"/>
+                        </h:form>
+                        <h:commandButton class="btn btn-block btn-success" value="send"/>
+                    </div>
+                </div>
+                
+             
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

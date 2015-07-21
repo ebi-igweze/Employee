@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        
+    </h:head>
+    <h:body>
+        
+        
+                        <!--the chat boxes that pop up-->
+                <ui:repeat value="" var="" >
+
+
+                    <div class="popup-box chat-popup" style="display: block" id="ere">
+                        <div class="popup-head">
+                            <div class="popup-head-left">Augusta Igweze</div>
+                            <div class="popup-head-right"><a href="#">&#10005;</a></div>
+                            <div style="clear: both"></div>  
+                        </div>
+
+                        <div class="popup-messages">
+                            <div class="row">
+                                <div style="overflow-y: auto; width: 313px; height: 220px;padding-top :5px; padding-bottom: 65px;padding-left: 25px; padding-right: 15px;">
+                                    <ul style="padding-left: 3px;padding-right: 3px; margin: 0">
+                                        <h:form  id="form1">
+                                            <h:panelGroup  id="mesgs">
+                                                #{webTimeBean.disPlay()}
+                                                <ui:repeat value="#{webTimeBean.displayMessages}" var="msg">
+                                                    <h:panelGroup rendered="#{!msg.fromUser}">
+                                                        <li class="list-group-item" style="border-radius: 4px; margin-right: 70px; margin-top: 10px"> 
+                                                            <span style="font-size: 7pt; border: 1px; margin: 5px;vertical-align: text-top">#{msg.messageTimeStamp}</span>
+                                                            <h:outputText value="#{msg.message}"/>
+                                                        </li>
+                                                    </h:panelGroup>
+                                                    <h:panelGroup rendered="#{msg.fromUser}">
+                                                        <li class="list-group-item" style="border-radius: 4px;margin-left: 70px; margin-top: 10px">
+                                                            <span style="font-size: 7pt; border: 1px; margin: 5px;vertical-align: text-top">#{msg.messageTimeStamp}</span>
+                                                            <h:outputText value="#{msg.message}"/>
+                                                        </li>
+                                                    </h:panelGroup>
+                                                </ui:repeat>
+                                                <p:poll id="polling" interval="5" listener="#{webTimeBean.disPlay()}" update="mesgs" />
+                                            </h:panelGroup>
+                                        </h:form>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="btn-group" style="background-color: white;height: 25px;width:297px;position: absolute; bottom: 0.5px">
+                                <h:form>
+                                    <h:inputTextarea value="#{webTimeBean.chatMessage}" id="chattext" required="true" style="resize: none; width: 275px; height: 24px;padding: 1px; margin: 0px"/>
+                                    <h:commandLink action="#{webTimeBean.send()}">
+                                        <f:ajax id="ajaxed"  execute="chattext" render="chattext mesgs"/>
+                                        <span style="color: #204d74;margin-left: 1px;padding-bottom: 2px" class="glyphicon glyphicon-plane"></span>
+                                    </h:commandLink> 
+                                </h:form>
+                            </div>
+                        </div>
+
+                    </div>
+                </ui:repeat>
+        
+        
+        
+        <script type="text/javascript" src="resources/js/mySocketScript.js"/>
+    </h:body>
+</html>
+
